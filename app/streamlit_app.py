@@ -255,28 +255,34 @@ def render_query_section():
     # Sample questions
     sample_questions = get_sample_questions()
 
-    col1, col2 = st.columns([3, 1])
+    # Initialize session state for selected query
+    if 'selected_query' not in st.session_state:
+        st.session_state.selected_query = ""
+    if 'auto_search' not in st.session_state:
+        st.session_state.auto_search = False
 
-    with col1:
-        # Query input
-        query = st.text_area(
-            "Enter your question in natural language:",
-            placeholder="e.g., Show me the top 10 customers by total revenue...",
-            height=100,
-            label_visibility="collapsed"
-        )
+    col1, col2 = st.columns([3, 1])
 
     with col2:
         st.markdown("**Try these:**")
         for q in sample_questions[:4]:
             if st.button(q[:35] + "...", key=f"sample_{hash(q)}", use_container_width=True):
-                query = q
-                st.session_state.pending_query = q
+                st.session_state.selected_query = q
+                st.session_state.auto_search = True
+                st.rerun()
 
-    # Check for pending query from button click
-    if hasattr(st.session_state, 'pending_query'):
-        query = st.session_state.pending_query
-        del st.session_state.pending_query
+    with col1:
+        # Query input - use selected_query as default value
+        query = st.text_area(
+            "Enter your question in natural language:",
+            value=st.session_state.selected_query,
+            placeholder="e.g., Show me the top 10 customers by total revenue...",
+            height=100,
+            label_visibility="collapsed"
+        )
+        # Update session state if user types manually
+        if query != st.session_state.selected_query:
+            st.session_state.selected_query = query
 
     col1, col2, col3 = st.columns([1, 1, 2])
 
@@ -285,6 +291,11 @@ def render_query_section():
 
     with col2:
         execute_clicked = st.button("▶️ Execute Query", use_container_width=True)
+
+    # Check if auto-search was triggered by sample button
+    if st.session_state.auto_search:
+        st.session_state.auto_search = False
+        search_clicked = True
 
     return query, search_clicked, execute_clicked
 
