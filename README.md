@@ -4,7 +4,31 @@ An enterprise semantic search system that enables natural language queries acros
 
 ## Live Demo
 
-[Try Natural Language Search](https://your-demo-url.com) - Ask questions in plain English, get SQL and results.
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://semantic-data-discovery.streamlit.app)
+
+Try the interactive demo - Ask questions in plain English, get SQL and results instantly.
+
+### Run Locally
+
+```bash
+# Clone and install
+git clone https://github.com/waqas-shami/semantic-data-discovery.git
+cd semantic-data-discovery
+pip install -r requirements.txt
+
+# Run the demo
+python run_demo.py
+# Or: streamlit run app/streamlit_app.py
+```
+
+### Demo Features
+
+- **Natural Language Queries**: Type questions like "Show me top customers by revenue"
+- **Instant SQL Generation**: Get optimized SQL with confidence scores
+- **Query Explanation**: Understand the logic behind each generated query
+- **Schema Browser**: Explore the demo database schema interactively
+- **Query History**: Track and replay previous queries
+- **Data Preview**: Execute queries and view results in-app
 
 ## Problem Statement
 
@@ -201,5 +225,6 @@ MIT License - See LICENSE file for details.
 ## Author
 
 **Waqas Shami** - Head of Data Platform | Enterprise AI/ML Solutions
-- [LinkedIn](https://linkedin.com/in/yourprofile)
+- [LinkedIn](https://linkedin.com/in/waqas-shami)
 - [Website](https://waqasshami.com)
+- [GitHub](https://github.com/waqas-shami)
